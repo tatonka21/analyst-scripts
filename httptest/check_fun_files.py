@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     # Loop on the file
     ffile = open(args.file, "r")
-    fname = ffile.readline().strip()
+    fname = ffile.readline(5_000_000).strip()
     while fname != "":
         try:
             r = requests.get(urlparse.urljoin(host, fname), headers=headers, verify=False)
@@ -72,4 +72,4 @@ if __name__ == "__main__":
         except requests.ConnectionError:
             print("%s not available for %s" % (host, fname))
 
-        fname = ffile.readline().strip()
+        fname = ffile.readline(5_000_000).strip()
