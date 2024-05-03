@@ -317,8 +317,8 @@ if __name__ == "__main__":
         link = Link(bitly, args.hash)
         link.pprint()
     elif args.file:
-        f = open(args.file, 'r')
-        data = f.read().split()
+        with open(args.file, 'r') as f:
+            data = f.read().split()
         print("Date;Short URL;Long URL;Analytics;Aggregate;Aggregate Hash;User;Short URL Clicks;Long URL Clicks")
         for d in data:
             if d.strip() != "":

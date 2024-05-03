@@ -51,25 +51,22 @@ if __name__ == "__main__":
             os.makedirs(args.outdir)
         if not os.path.exists(args.outdir + "/" + hostname):
             os.makedirs(args.outdir + "/" + hostname)
-
-
-    # Loop on the file
-    ffile = open(args.file, "r")
-    fname = ffile.readline().strip()
-    while fname != "":
-        try:
-            r = requests.get(urlparse.urljoin(host, fname), headers=headers, verify=False)
-            if r.status_code == 200:
-                if args.save:
-                    print("%s found ! (-> saved)" % fname)
-                    fout = open(args.outdir + "/" + hostname + "/" + fname, "a+")
-                    fout.write(r.text)
-                    fout.close()
-                else:
-                    print("%s found !" % fname)
-            else:
-                print("%s not found ! (%i)" % (fname, r.status_code))
-        except requests.ConnectionError:
-            print("%s not available for %s" % (host, fname))
-
+    with open(args.file, "r") as ffile:
         fname = ffile.readline().strip()
+        while fname != "":
+            try:
+                r = requests.get(urlparse.urljoin(host, fname), headers=headers, verify=False)
+                if r.status_code == 200:
+                    if args.save:
+                        print("%s found ! (-> saved)" % fname)
+                        fout = open(args.outdir + "/" + hostname + "/" + fname, "a+")
+                        fout.write(r.text)
+                        fout.close()
+                    else:
+                        print("%s found !" % fname)
+                else:
+                    print("%s not found ! (%i)" % (fname, r.status_code))
+            except requests.ConnectionError:
+                print("%s not available for %s" % (host, fname))
+
+            fname = ffile.readline().strip()
