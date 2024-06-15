@@ -3,3 +3,4 @@ PyYAML
 cryptography
 beautifoulsoup4
 lxml
+security==1.2.1

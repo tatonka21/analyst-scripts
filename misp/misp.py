@@ -34,6 +34,7 @@ import os
 import lxml
 from lxml import objectify
 import requests
+from security import safe_requests
 
 # Fix Python 3.x.
 try:
@@ -575,7 +576,7 @@ class MispServer(object):
         :returns: HTTP raw content (as seen by :class:`requests.Response`)
         """
         url = self._absolute_url(path)
-        resp = requests.get(url, headers=self.headers, verify=self.verify_ssl)
+        resp = safe_requests.get(url, headers=self.headers, verify=self.verify_ssl)
         if resp.status_code != 200:
             raise MispTransportError('GET %s: returned status=%d', path, resp.status_code)
         return resp.content

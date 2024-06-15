@@ -3,6 +3,8 @@ import json
 import requests
 import os
 import sys
+from security import safe_requests
+
 try:
     import configparser as cp
 except ImportError:
@@ -17,12 +19,12 @@ class GoogleShortener(object):
 
     def get_analytics(self, hash):
         params = {'key': self.token, 'shortUrl': 'http://goo.gl/' + hash, 'projection': 'FULL'}
-        r = requests.get(self.host, params=params)
+        r = safe_requests.get(self.host, params=params)
         return r.json()
 
     def expand(self, hash):
         params = {'key': self.token, 'shortUrl': 'http://goo.gl/' + hash}
-        r = requests.get(self.host, params=params)
+        r = safe_requests.get(self.host, params=params)
         return r.json()
 
     def shorten(self, long_url):

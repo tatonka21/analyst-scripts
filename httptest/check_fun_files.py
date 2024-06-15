@@ -1,4 +1,6 @@
 #! /usr/bin/env python2
+from security import safe_requests
+
 try:
     import urlparse
 except ImportError:
@@ -37,7 +39,7 @@ if __name__ == "__main__":
 
     # Check host validity
     try:
-        r = requests.get(host, headers=headers, verify=False)
+        r = safe_requests.get(host, headers=headers, verify=False)
     except requests.ConnectionError:
         print("Host unavailable!")
         exit(1)
@@ -58,7 +60,7 @@ if __name__ == "__main__":
     fname = ffile.readline().strip()
     while fname != "":
         try:
-            r = requests.get(urlparse.urljoin(host, fname), headers=headers, verify=False)
+            r = safe_requests.get(urlparse.urljoin(host, fname), headers=headers, verify=False)
             if r.status_code == 200:
                 if args.save:
                     print("%s found ! (-> saved)" % fname)
