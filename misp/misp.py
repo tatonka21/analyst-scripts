@@ -562,7 +562,7 @@ class MispServer(object):
         :returns: HTTP raw content (as seen by :class:`requests.Response`)
         """
         url = self._absolute_url(path)
-        resp = requests.post(url, data=body, headers=self.headers, verify=self.verify_ssl)
+        resp = requests.post(url, data=body, headers=self.headers, verify=self.verify_ssl, timeout=60)
         if resp.status_code != 200:
             raise MispTransportError('POST %s: returned status=%d', path, resp.status_code)
         return resp.content
@@ -575,7 +575,7 @@ class MispServer(object):
         :returns: HTTP raw content (as seen by :class:`requests.Response`)
         """
         url = self._absolute_url(path)
-        resp = requests.get(url, headers=self.headers, verify=self.verify_ssl)
+        resp = requests.get(url, headers=self.headers, verify=self.verify_ssl, timeout=60)
         if resp.status_code != 200:
             raise MispTransportError('GET %s: returned status=%d', path, resp.status_code)
         return resp.content
