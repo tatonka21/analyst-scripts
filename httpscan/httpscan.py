@@ -127,8 +127,7 @@ class Scanner(object):
                 urljoin(server, path),
                 headers=headers,
                 timeout=1,
-                verify=False
-            )
+                verify=True)
         except requests.exceptions.ConnectionError:
             return False, None, "%s -> Connection Error" % server
         except requests.exceptions.ReadTimeout:
