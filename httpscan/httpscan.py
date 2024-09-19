@@ -11,6 +11,7 @@ from cryptography.hazmat.backends import default_backend
 from bs4 import BeautifulSoup
 import yaml
 import requests
+from security import safe_requests
 
 
 class Signature(object):
@@ -123,7 +124,7 @@ class Scanner(object):
         if not server.startswith("http"):
             server = "http://" + server
         try:
-            res = requests.get(
+            res = safe_requests.get(
                 urljoin(server, path),
                 headers=headers,
                 timeout=1,
