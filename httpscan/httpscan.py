@@ -115,7 +115,7 @@ class Scanner(object):
         self.signatures = []
         for f in os.listdir(self.sigdir):
             ffile = open(os.path.join(self.sigdir, f))
-            self.signatures.append(Signature(yaml.load(ffile), self))
+            self.signatures.append(Signature(yaml.load(ffile, Loader=yaml.SafeLoader), self))
             ffile.close()
 
     def _request(self, server, path):
@@ -274,7 +274,7 @@ class Scanner(object):
         else:
             if os.path.exists(signature):
                 ffile = open(args.signature)
-                signatures = [Signature(yaml.load(ffile), self)]
+                signatures = [Signature(yaml.load(ffile, Loader=yaml.SafeLoader), self)]
                 ffile.close()
             else:
                 self.log.critical("Bad signature")
