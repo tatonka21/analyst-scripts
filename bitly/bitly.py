@@ -1,10 +1,11 @@
 import argparse
 import json
-import requests
 import os
 import sys
 import datetime
 import logging
+from security import safe_requests
+
 try:
     from urllib.parse import urljoin
 except ImportError:
@@ -44,7 +45,7 @@ class Bitly(object):
 
     def _apicall(self, url, params={}):
         params["access_token"] = self.access_token
-        r = requests.get(urljoin(self.host, url), params=params)
+        r = safe_requests.get(urljoin(self.host, url), params=params)
         data = r.json()
         if data["status_code"] == 200:
             return data['data']
