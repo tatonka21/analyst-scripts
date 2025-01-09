@@ -17,17 +17,17 @@ class GoogleShortener(object):
 
     def get_analytics(self, hash):
         params = {'key': self.token, 'shortUrl': 'http://goo.gl/' + hash, 'projection': 'FULL'}
-        r = requests.get(self.host, params=params)
+        r = requests.get(self.host, params=params, timeout=60)
         return r.json()
 
     def expand(self, hash):
         params = {'key': self.token, 'shortUrl': 'http://goo.gl/' + hash}
-        r = requests.get(self.host, params=params)
+        r = requests.get(self.host, params=params, timeout=60)
         return r.json()
 
     def shorten(self, long_url):
         params = {'key': self.token, 'longUrl': long_url}
-        r = requests.post(self.host, data=params)
+        r = requests.post(self.host, data=params, timeout=60)
         return r.json()
 
 

@@ -44,7 +44,7 @@ class Bitly(object):
 
     def _apicall(self, url, params={}):
         params["access_token"] = self.access_token
-        r = requests.get(urljoin(self.host, url), params=params)
+        r = requests.get(urljoin(self.host, url), params=params, timeout=60)
         data = r.json()
         if data["status_code"] == 200:
             return data['data']
